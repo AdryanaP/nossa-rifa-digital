@@ -51,12 +51,10 @@
                   </button>
                 </div>
               </TransitionChild>
-              <div class="flex flex-shrink-0 items-center justify-center px-4 my-4">
-                <img
-                  class="w-36"
-                  src="@/assets/logo.png"
-                  alt="logo"
-                />
+              <div
+                class="flex flex-shrink-0 items-center justify-center px-4 my-4"
+              >
+                <img class="w-36" src="@/assets/logo.png" alt="logo" />
               </div>
               <nav
                 class="mt-5 h-full flex-shrink-0 divide-y divide-secondary overflow-y-auto"
@@ -111,17 +109,11 @@
     </TransitionRoot>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
+    <div class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col border">
       <!-- Sidebar component, swap this element with another sidebar if you like -->
-      <div
-        class="flex flex-grow flex-col overflow-y-auto pt-5 pb-4"
-      >
+      <div class="flex flex-grow flex-col overflow-y-auto pt-5 pb-4">
         <div class="flex flex-shrink-0 items-center justify-center px-4 my-6">
-          <img
-            class="w-52"
-            src="@/assets/logo.png"
-            alt="logo"
-          />
+          <img class="w-52" src="@/assets/logo.png" alt="logo" />
         </div>
         <nav
           class="mt-5 flex flex-1 flex-col divide-y divide-secondary overflow-y-auto"
@@ -169,7 +161,7 @@
       </div>
     </div>
 
-    <div class="flex flex-1 flex-col lg:pl-64">
+    <div class="flex flex-1 flex-col lg:pl-64 h-full">
       <div
         class="flex h-16 flex-shrink-0 border-b border-gray-200 bg-white lg:border-none"
       >
@@ -225,7 +217,7 @@
           </div>
         </div>
       </div>
-      <main class="flex-1 pb-8">
+      <main class="flex-1 pb-8 bg-primaryLight h-full">
         <!-- Page header -->
         <div class="bg-white shadow">
           <div class="px-4 sm:px-6 lg:mx-auto lg:max-w-6xl lg:px-8">
@@ -250,6 +242,7 @@
                 <button
                   type="button"
                   class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+                  @click="newCampaign"
                 >
                   Criar Campanha
                 </button>
@@ -258,56 +251,8 @@
           </div>
         </div>
 
-        <div class="mt-8">
-          <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-            <h2 class="text-lg font-medium leading-6 text-gray-900">
-              Campanhas
-            </h2>
-            <div
-              class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              <!-- Card -->
-              <div
-                v-for="card in cards"
-                :key="card.name"
-                class="overflow-hidden rounded-lg bg-white shadow"
-              >
-                <div class="p-5">
-                  <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                      <component
-                        :is="card.icon"
-                        class="h-6 w-6 text-gray-400"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <div class="ml-5 w-0 flex-1">
-                      <dl>
-                        <dt class="truncate text-sm font-medium text-gray-500">
-                          {{ card.name }}
-                        </dt>
-                        <dd>
-                          <div class="text-lg font-medium text-gray-900">
-                            {{ card.amount }}
-                          </div>
-                        </dd>
-                      </dl>
-                    </div>
-                  </div>
-                </div>
-                <div class="bg-gray-50 px-5 py-3">
-                  <div class="text-sm">
-                    <a
-                      :href="card.href"
-                      class="font-medium text-cyan-700 hover:text-cyan-900"
-                      >View all</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Campaigns v-if="myCampaigns"/>
+        <NewCampaign v-else/>
       </main>
     </div>
   </div>
@@ -347,6 +292,8 @@ import {
   ChevronRightIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/vue/20/solid";
+import Campaigns from "@/components/Campaigns.vue";
+import NewCampaign from "@/components/NewCampaign.vue";
 
 export default {
   name: "HomeVue",
@@ -378,10 +325,13 @@ export default {
     ChevronDownIcon,
     ChevronRightIcon,
     MagnifyingGlassIcon,
+    Campaigns,
+    NewCampaign,
   },
   data() {
     return {
       sidebarOpen: false,
+      myCampaigns: true,
       navigation: [
         { name: "Minhas Rifas", href: "#", icon: TicketIcon, current: true },
         {
@@ -404,6 +354,11 @@ export default {
       ],
     };
   },
+  methods: {
+    newCampaign() {
+      this.myCampaigns = false
+    }
+  }
 };
 </script>
 
