@@ -1,17 +1,25 @@
 <template>
   <div>
     <div class="mx-auto max-w-6xl py-10 md:py-20">
-      <h2
-        class="text-3xl font-bold leading-6 text-gray-900 flex gap-2 items-center mb-10 px-8 2xl:px-0"
-      >
-        <TicketIcon class="h-8 w-8" />
-        Criar Campanha
-      </h2>
-      <form class="flex flex-col gap-6 px-8 2xl:px-0">
+      <div class="flex items-center justify-between mb-10 px-8 md:px-0">
+        <h2
+          class="text-2xl lg:text-3xl font-bold leading-6 text-gray-900 flex gap-2 items-center"
+        >
+          <PencilIcon class="h-8 w-8" />
+          Editando: Nome da Campanha
+        </h2>
+        <button
+          type="button"
+          class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        >
+          <EyeIcon class="h-4 w-4" />
+        </button>
+      </div>
+      <form class="flex flex-col gap-6 px-8 md:px-0">
         <div>
-          <label for="name" class="block font-medium text-sm"
-            >Nome da campanha</label
-          >
+          <label for="name" class="font-medium text-sm flex items-center gap-1"
+            >Nome <InformationCircleIcon class="h-4 w-4"
+          /></label>
           <div class="mt-1">
             <input
               id="name"
@@ -89,9 +97,10 @@
         </Listbox>
 
         <Listbox as="div" v-model="selectedCategory">
-          <ListboxLabel class="block font-medium text-sm"
-            >Categoria</ListboxLabel
-          >
+          <ListboxLabel
+            class="block font-medium text-sm flex items-center gap-1"
+            >Categoria <InformationCircleIcon class="h-4 w-4"
+          /></ListboxLabel>
           <div class="relative mt-1">
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
@@ -154,6 +163,93 @@
 
         <div>
           <label
+            for="description"
+            class="font-medium text-sm flex items-center gap-1"
+            >Descrição / Regulamento <InformationCircleIcon class="h-4 w-4"
+          /></label>
+          <div class="mt-1">
+            <textarea
+              id="description"
+              name="description"
+              rows="4"
+              cols="50"
+              required=""
+              class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+            >
+            </textarea>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex gap-1">
+            <label class="label">Imagens</label>
+            <div
+              class="inline-flex items-center px-2 py-0.5 default-radius text-xs font-medium bg-green-100 text-green-800"
+            >
+              <b class="mr-1">Tamanho recomendado: </b> 1365x758 pixels
+            </div>
+          </div>
+          <div class="flex overflow-x-auto gap-4">
+            <span class="flex-none bg-white w-full sm:w-[300px] h-28 text-2xl"
+              ><label
+                class="w-full relative flex cursor-pointer flex-col items-center text-blue-400 justify-center border-4 h-full border-blue-200 hover:text-gray-400 rounded-md border-dashed hover:bg-gray-100 hover:border-gray-300"
+              >
+                <CloudArrowUpIcon class="h-8 w-10 absolute" />
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple=""
+                  class="hidden w-full" /></label
+            ></span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label for="ticketsMin" class="text-sm font-medium text-gray-700"
+              >Quantidade minima de bilhetes por compra
+              <InformationCircleIcon class="h-4 w-4 inline-block"
+            /></label>
+            <div class="mt-1 flex rounded-md shadow-sm">
+              <span
+                class="inline-flex items-center font-semibold rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm"
+                ><ShoppingCartIcon class="h-4 w-4"
+              /></span>
+              <input
+                id="ticketsMin"
+                name="ticketsMin"
+                type="number"
+                required=""
+                placeholder="0"
+                class="block w-full appearance-none rounded-r-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="ticketsMax" class="text-sm font-medium text-gray-700"
+              >Quantidade minima de bilhetes por compra
+              <InformationCircleIcon class="h-4 w-4 inline-block"
+            /></label>
+            <div class="mt-1 flex rounded-md shadow-sm">
+              <span
+                class="inline-flex items-center font-semibold rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm"
+                ><ShoppingCartIcon class="h-4 w-4"
+              /></span>
+              <input
+                id="ticketsMax"
+                name="ticketsMax"
+                type="number"
+                required=""
+                placeholder="300"
+                class="block w-full appearance-none rounded-r-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label
             for="ticketPrice"
             class="block text-sm font-medium text-gray-700"
             >Preço do bilhete</label
@@ -177,7 +273,7 @@
 
         <Listbox as="div" v-model="selectedHowRaffle">
           <ListboxLabel class="block font-medium text-sm"
-            >Por onde será feito o sorteio?</ListboxLabel
+            >Local do sorteio</ListboxLabel
           >
           <div class="relative mt-1">
             <ListboxButton
@@ -333,55 +429,106 @@
             </div>
           </div>
         </div>
+
+        <div>
+          <label
+            for="ticketPrice"
+            class="block text-sm font-medium text-gray-700"
+            >Data de sorteio
+            <InformationCircleIcon class="h-4 w-4 inline-block"
+          /></label>
+        </div>
+
+        <Listbox as="div" v-model="selectedTimePayment">
+          <ListboxLabel class="block font-medium text-sm"
+            >Tempo para pagamento
+            <InformationCircleIcon class="h-4 w-4 inline-block"
+          /></ListboxLabel>
+          <div class="relative mt-1">
+            <ListboxButton
+              class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
+            >
+              <span class="block truncate">{{ selectedTimePayment.name }}</span>
+              <span
+                class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
+              >
+                <ChevronUpDownIcon
+                  class="h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </span>
+            </ListboxButton>
+
+            <transition
+              leave-active-class="transition ease-in duration-100"
+              leave-from-class="opacity-100"
+              leave-to-class="opacity-0"
+            >
+              <ListboxOptions
+                class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm font-semibold"
+              >
+                <ListboxOption
+                  as="template"
+                  v-for="time in timePayment"
+                  :key="time.id"
+                  :value="time"
+                  v-slot="{ active, selected }"
+                >
+                  <li
+                    :class="[
+                      active ? 'text-white bg-primary' : 'text-gray-900',
+                      'relative cursor-default select-none py-2 pl-3 pr-9',
+                    ]"
+                  >
+                    <span
+                      :class="[
+                        selected ? 'font-semibold' : 'font-normal',
+                        'block truncate',
+                      ]"
+                      >{{ time.name }}</span
+                    >
+
+                    <span
+                      v-if="selected"
+                      :class="[
+                        active ? 'text-white' : 'text-primary',
+                        'absolute inset-y-0 right-0 flex items-center pr-4',
+                      ]"
+                    >
+                      <CheckIcon class="h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </li>
+                </ListboxOption>
+              </ListboxOptions>
+            </transition>
+          </div>
+        </Listbox>
       </form>
 
-      <div class="bg-white shadow my-8 lg:border-t lg:border-gray-200">
-        <div class="px-4 sm:px-6 lg:mx-auto lg:max-w-6xl lg:px-8">
-          <div class="py-6 sm:flex sm:items-center sm:justify-between">
-            <div class="min-w-0 flex-1">
-              <div class="flex items-center">
-                <div>
-                  <div class="flex items-center">
-                    <h1
-                      class="text-xl font-bold leading-7 text-gray-900 sm:truncate sm:leading-9"
-                    >
-                      Taxas de publicação
-                    </h1>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="mt-6 sm:mt-0 flex space-x-3 md:mt-0 md:ml-4">
-              <button
-                type="button"
-                class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-              >
-                Ver taxas
-              </button>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-2 border-t py-4">
-            <p class="justify-self-start text-sm font-medium">
-              Taxa de publicação
-            </p>
-            <p class="justify-self-end text-red-600 font-medium">- R$ 7,00</p>
-
-            <p class="justify-self-start text-sm font-medium">
-              Arrecadação estimada
-            </p>
-            <p class="justify-self-end text-green-600 font-medium">+ R$ 0,00</p>
-          </div>
-        </div>
+      <div class="grid grid-cols-2 gap-2 px-8 md:px-0 mt-6">
+        <button
+          type="button"
+          class="inline-flex items-center justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        >
+          <TrophyIcon class="h-4 w-4" />
+          Editar prêmios
+        </button>
+        <button
+          type="button"
+          class="inline-flex items-center justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        >
+          <BanknotesIcon class="h-4 w-4" />
+          Editar promoções
+        </button>
       </div>
 
-      <div class="px-8 md:px-0">
+      <div class="px-8 md:px-0 mt-8">
         <button
           class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-primary text-white px-3 py-2 text-sm font-medium shadow-sm focus:outline-none"
           type="submit"
-          @click="goEditCampaign"
         >
-          Prosseguir
-          <ArrowRightIcon class="h-5 w-5" aria-hidden="true"/>
+          Finalizar
+          <ArrowRightIcon class="h-5 w-5" aria-hidden="true" />
         </button>
       </div>
     </div>
@@ -399,8 +546,13 @@ import {
 import {
   CheckIcon,
   ChevronUpDownIcon,
-  TicketIcon,
+  PencilIcon,
+  EyeIcon,
+  TrophyIcon,
+  BanknotesIcon,
   ArrowRightIcon,
+  CloudArrowUpIcon,
+  ShoppingCartIcon,
 } from "@heroicons/vue/20/solid";
 
 import { InformationCircleIcon } from "@heroicons/vue/24/outline";
@@ -410,14 +562,19 @@ export default {
   name: "NewCampaignVue",
   directives: { mask },
   components: {
-    TicketIcon,
+    PencilIcon,
+    EyeIcon,
+    TrophyIcon,
+    BanknotesIcon,
     Listbox,
     ListboxButton,
     ListboxLabel,
     ListboxOption,
     ListboxOptions,
     ArrowRightIcon,
+    ShoppingCartIcon,
     InformationCircleIcon,
+    CloudArrowUpIcon,
     CheckIcon,
     ChevronUpDownIcon,
   },
@@ -489,18 +646,24 @@ export default {
         { acronym: "GB", name: "Reino Unido" },
       ],
 
+      timePayment: [
+        { id: 1, name: "10 Minutos" },
+        { id: 2, name: "30 Minutos" },
+        { id: 3, name: "1 Hora" },
+        { id: 4, name: "3 Horas" },
+        { id: 5, name: "1 dia" },
+        { id: 6, name: "3 dias" },
+        { id: 7, name: "15 dias" },
+      ],
+
       selectedTickets: { name: "Escolha uma opção" },
       selectedCategory: { name: "Escolha uma opção" },
       selectedHowRaffle: { name: "Escolha uma opção" },
+      selectedTimePayment: { name: "Escolha uma opção" },
       selectedCountry: { acronym: "BR", name: "Brasil" },
       name: "",
       tel: "",
     };
   },
-  methods: {
-    goEditCampaign() {
-      this.$store.commit("openEditCampaign");
-    }
-  }
 };
 </script>

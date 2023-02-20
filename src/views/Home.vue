@@ -109,7 +109,9 @@
     </TransitionRoot>
 
     <!-- Static sidebar for desktop -->
-    <div class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col border">
+    <div
+      class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col border"
+    >
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex flex-grow flex-col overflow-y-auto pt-5 pb-4">
         <div class="flex flex-shrink-0 items-center justify-center px-4 my-6">
@@ -251,8 +253,9 @@
           </div>
         </div>
 
-        <Campaigns v-if="myCampaigns"/>
-        <NewCampaign v-else/>
+        <Campaigns v-if="myCampaignsOpen" />
+        <NewCampaign v-if="newCampaignOpen" />
+        <EditCampaign v-if="editCampaignOpen" />
       </main>
     </div>
   </div>
@@ -294,6 +297,7 @@ import {
 } from "@heroicons/vue/20/solid";
 import Campaigns from "@/components/Campaigns.vue";
 import NewCampaign from "@/components/NewCampaign.vue";
+import EditCampaign from "@/components/EditCampaign.vue";
 
 export default {
   name: "HomeVue",
@@ -327,11 +331,11 @@ export default {
     MagnifyingGlassIcon,
     Campaigns,
     NewCampaign,
+    EditCampaign,
   },
   data() {
     return {
       sidebarOpen: false,
-      myCampaigns: true,
       navigation: [
         { name: "Minhas Rifas", href: "#", icon: TicketIcon, current: true },
         {
@@ -354,11 +358,22 @@ export default {
       ],
     };
   },
+  computed: {
+    newCampaignOpen() {
+      return this.$store.state.newCampaignOpen;
+    },
+    editCampaignOpen() {
+      return this.$store.state.editCampaignOpen;
+    },
+    myCampaignsOpen() {
+      return this.$store.state.myCampaignsOpen;
+    },
+  },
   methods: {
     newCampaign() {
-      this.myCampaigns = false
-    }
-  }
+      this.$store.commit("openNewCampaign");
+    },
+  },
 };
 </script>
 
