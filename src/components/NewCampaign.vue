@@ -26,8 +26,13 @@
 
         <Listbox as="div" v-model="selectedTickets">
           <ListboxLabel class="font-medium text-sm flex gap-1 items-center"
-            >Quantidade de bilhetes <InformationCircleIcon class="h-4 w-4"
-          /></ListboxLabel>
+            >Quantidade de bilhetes
+            <span
+              title="Os bilhetes começam a partir de 0"
+            >
+              <InformationCircleIcon class="h-4 w-4 inline-block" />
+            </span>
+          </ListboxLabel>
           <div class="relative mt-1">
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
@@ -381,7 +386,7 @@
           @click="goEditCampaign"
         >
           Prosseguir
-          <ArrowRightIcon class="h-5 w-5" aria-hidden="true"/>
+          <ArrowRightIcon class="h-5 w-5" aria-hidden="true" />
         </button>
       </div>
     </div>
@@ -500,7 +505,7 @@ export default {
   methods: {
     goEditCampaign() {
       this.$store.commit("openEditCampaign");
-    }
-  }
+    },
+  },
 };
 </script>

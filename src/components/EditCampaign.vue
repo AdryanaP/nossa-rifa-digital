@@ -18,8 +18,11 @@
       <form class="flex flex-col gap-6 px-8 md:px-0">
         <div>
           <label for="name" class="font-medium text-sm flex items-center gap-1"
-            >Nome <InformationCircleIcon class="h-4 w-4"
-          /></label>
+            >Nome
+            <span title="Nome da sua campanha">
+              <InformationCircleIcon class="h-4 w-4" />
+            </span>
+          </label>
           <div class="mt-1">
             <input
               id="name"
@@ -34,8 +37,8 @@
 
         <Listbox as="div" v-model="selectedTickets">
           <ListboxLabel class="font-medium text-sm flex gap-1 items-center"
-            >Quantidade de bilhetes <InformationCircleIcon class="h-4 w-4"
-          /></ListboxLabel>
+            >Quantidade de bilhetes
+          </ListboxLabel>
           <div class="relative mt-1">
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
@@ -97,10 +100,12 @@
         </Listbox>
 
         <Listbox as="div" v-model="selectedCategory">
-          <ListboxLabel
-            class="block font-medium text-sm flex items-center gap-1"
-            >Categoria <InformationCircleIcon class="h-4 w-4"
-          /></ListboxLabel>
+          <ListboxLabel class="font-medium text-sm flex items-center gap-1"
+            >Categoria
+            <span title="Categoria da sua campanha">
+              <InformationCircleIcon class="h-4 w-4" />
+            </span>
+          </ListboxLabel>
           <div class="relative mt-1">
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
@@ -165,8 +170,11 @@
           <label
             for="description"
             class="font-medium text-sm flex items-center gap-1"
-            >Descrição / Regulamento <InformationCircleIcon class="h-4 w-4"
-          /></label>
+            >Descrição / Regulamento
+            <span title="Descreva o regulamento da sua campanha">
+              <InformationCircleIcon class="h-4 w-4" />
+            </span>
+          </label>
           <div class="mt-1">
             <textarea
               id="description"
@@ -208,8 +216,12 @@
           <div>
             <label for="ticketsMin" class="text-sm font-medium text-gray-700"
               >Quantidade minima de bilhetes por compra
-              <InformationCircleIcon class="h-4 w-4 inline-block"
-            /></label>
+              <span
+                title="Colaborador precisa comprar essa quantidade minima para participar"
+              >
+                <InformationCircleIcon class="h-4 w-4 inline-block" />
+              </span>
+            </label>
             <div class="mt-1 flex rounded-md shadow-sm">
               <span
                 class="inline-flex items-center font-semibold rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm"
@@ -228,9 +240,14 @@
 
           <div>
             <label for="ticketsMax" class="text-sm font-medium text-gray-700"
-              >Quantidade minima de bilhetes por compra
-              <InformationCircleIcon class="h-4 w-4 inline-block"
-            /></label>
+              >Quantidade máxima de bilhetes por compra
+
+              <span
+                title="Colaborador é permitido comprar essa quantidade máxima de bilhetes por cada compra"
+              >
+                <InformationCircleIcon class="h-4 w-4 inline-block" />
+              </span>
+            </label>
             <div class="mt-1 flex rounded-md shadow-sm">
               <span
                 class="inline-flex items-center font-semibold rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm"
@@ -273,8 +290,13 @@
 
         <Listbox as="div" v-model="selectedHowRaffle">
           <ListboxLabel class="block font-medium text-sm"
-            >Local do sorteio</ListboxLabel
-          >
+            >Local do sorteio
+            <span
+              title="Local onde será realizado o sorteio, o nosso sistema não realiza os sorteios"
+            >
+              <InformationCircleIcon class="h-4 w-4 inline-block" />
+            </span>
+          </ListboxLabel>
           <div class="relative mt-1">
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
@@ -337,8 +359,12 @@
 
         <div>
           <label for="name" class="block font-medium text-sm"
-            >Telefone para suporte</label
-          >
+            >Telefone para suporte
+            <span
+              title="O Suporte ficará disponivel na página da sua campanha onde os colaboradores poderão entrar em contato para tirar dúvidas"
+            >
+              <InformationCircleIcon class="h-4 w-4 inline-block" /> </span
+          ></label>
 
           <div class="flex items-center gap-2 mt-1 w-full">
             <Listbox as="div" v-model="selectedCountry">
@@ -431,19 +457,92 @@
         </div>
 
         <div>
-          <label
-            for="ticketPrice"
-            class="block text-sm font-medium text-gray-700"
+          <label for="date" class="block text-sm font-medium text-gray-700"
             >Data de sorteio
-            <InformationCircleIcon class="h-4 w-4 inline-block"
-          /></label>
+            <span
+              title="Data que o sorteio ocorrerá, caso informe, os colaboradores poderão fazer reservas até a data e a hora informada."
+            >
+              <InformationCircleIcon class="h-4 w-4 inline-block" /> </span
+          ></label>
+
+          <Switch
+            v-model="enabled"
+            :class="[
+              enabled ? 'bg-primary' : 'bg-gray-200',
+              'relative inline-flex h-6 mt-2 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+            ]"
+          >
+            <span class="sr-only">Use setting</span>
+            <span
+              :class="[
+                enabled ? 'translate-x-5' : 'translate-x-0',
+                'pointer-events-none relative inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+              ]"
+            >
+              <span
+                :class="[
+                  enabled
+                    ? 'opacity-0 ease-out duration-100'
+                    : 'opacity-100 ease-in duration-200',
+                  'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
+                ]"
+                aria-hidden="true"
+              >
+                <svg
+                  class="h-3 w-3 text-gray-400"
+                  fill="none"
+                  viewBox="0 0 12 12"
+                >
+                  <path
+                    d="M4 8l2-2m0 0l2-2M6 6L4 4m2 2l2 2"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <span
+                :class="[
+                  enabled
+                    ? 'opacity-100 ease-in duration-200'
+                    : 'opacity-0 ease-out duration-100',
+                  'absolute inset-0 flex h-full w-full items-center justify-center transition-opacity',
+                ]"
+                aria-hidden="true"
+              >
+                <svg
+                  class="h-3 w-3 text-primary"
+                  fill="currentColor"
+                  viewBox="0 0 12 12"
+                >
+                  <path
+                    d="M3.707 5.293a1 1 0 00-1.414 1.414l1.414-1.414zM5 8l-.707.707a1 1 0 001.414 0L5 8zm4.707-3.293a1 1 0 00-1.414-1.414l1.414 1.414zm-7.414 2l2 2 1.414-1.414-2-2-1.414 1.414zm3.414 2l4-4-1.414-1.414-4 4 1.414 1.414z"
+                  />
+                </svg>
+              </span>
+            </span>
+          </Switch>
+
+          <div v-if="enabled">
+            <input
+              id="date"
+              name="date"
+              type="datetime-local"
+              required=""
+              class="block mt-2 appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
+            />
+          </div>
         </div>
 
         <Listbox as="div" v-model="selectedTimePayment">
           <ListboxLabel class="block font-medium text-sm"
             >Tempo para pagamento
-            <InformationCircleIcon class="h-4 w-4 inline-block"
-          /></ListboxLabel>
+            <span
+              title="Tempo que o seu colaborador tem para fazer o pagamento, após esse prazo e o bilhete não for pago ele ficará disponível novamente"
+            >
+              <InformationCircleIcon class="h-4 w-4 inline-block" /> </span
+          ></ListboxLabel>
           <div class="relative mt-1">
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
@@ -542,6 +641,7 @@ import {
   ListboxLabel,
   ListboxOption,
   ListboxOptions,
+  Switch,
 } from "@headlessui/vue";
 import {
   CheckIcon,
@@ -571,6 +671,7 @@ export default {
     ListboxLabel,
     ListboxOption,
     ListboxOptions,
+    Switch,
     ArrowRightIcon,
     ShoppingCartIcon,
     InformationCircleIcon,
@@ -663,6 +764,7 @@ export default {
       selectedCountry: { acronym: "BR", name: "Brasil" },
       name: "",
       tel: "",
+      enabled: false,
     };
   },
 };
