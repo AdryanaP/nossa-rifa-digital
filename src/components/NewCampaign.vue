@@ -16,6 +16,7 @@
             <input
               id="name"
               name="name"
+              v-model="campaign.name"
               type="text"
               required=""
               placeholder="Nome da sua rifa digital"
@@ -24,12 +25,10 @@
           </div>
         </div>
 
-        <Listbox as="div" v-model="selectedTickets">
+        <Listbox as="div" v-model="campaign.amountTickets">
           <ListboxLabel class="font-medium text-sm flex gap-1 items-center"
             >Quantidade de bilhetes
-            <span
-              title="Os bilhetes começam a partir de 0"
-            >
+            <span title="Os bilhetes começam a partir de 0">
               <InformationCircleIcon class="h-4 w-4 inline-block" />
             </span>
           </ListboxLabel>
@@ -37,7 +36,9 @@
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
             >
-              <span class="block truncate">{{ selectedTickets.name }}</span>
+              <span class="block truncate">{{
+                campaign.amountTickets.name
+              }}</span>
               <span
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
               >
@@ -93,7 +94,7 @@
           </div>
         </Listbox>
 
-        <Listbox as="div" v-model="selectedCategory">
+        <Listbox as="div" v-model="campaign.category">
           <ListboxLabel class="block font-medium text-sm"
             >Categoria</ListboxLabel
           >
@@ -101,7 +102,7 @@
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
             >
-              <span class="block truncate">{{ selectedCategory.name }}</span>
+              <span class="block truncate">{{ campaign.category.name }}</span>
               <span
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
               >
@@ -173,6 +174,7 @@
               name="ticketPrice"
               type="tel"
               required=""
+              v-model="campaign.ticketPrice"
               v-mask="'###.###.###.###.###.###.###.###.###.###,##'"
               placeholder="0,00"
               class="block w-full appearance-none rounded-r-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
@@ -180,7 +182,7 @@
           </div>
         </div>
 
-        <Listbox as="div" v-model="selectedHowRaffle">
+        <Listbox as="div" v-model="campaign.howRaffle">
           <ListboxLabel class="block font-medium text-sm"
             >Por onde será feito o sorteio?</ListboxLabel
           >
@@ -188,7 +190,7 @@
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
             >
-              <span class="block truncate">{{ selectedHowRaffle.name }}</span>
+              <span class="block truncate">{{ campaign.howRaffle.name }}</span>
               <span
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
               >
@@ -250,15 +252,15 @@
           >
 
           <div class="flex items-center gap-2 mt-1 w-full">
-            <Listbox as="div" v-model="selectedCountry">
+            <Listbox as="div" v-model="campaign.country">
               <div class="relative">
                 <ListboxButton
                   class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
                 >
                   <span class="inline-flex w-full truncate">
-                    <span class="truncate">{{ selectedCountry.acronym }}</span>
+                    <span class="truncate">{{ campaign.country.acronym }}</span>
                     <span class="ml-2 truncate text-gray-500">{{
-                      selectedCountry.name
+                      campaign.country.name
                     }}</span>
                   </span>
                   <span
@@ -331,6 +333,7 @@
                 name="tel"
                 type="tel"
                 required=""
+                v-model="campaign.tel"
                 v-mask="'(##) #####-####'"
                 placeholder="Telefone / WhatsApp"
                 class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
@@ -379,7 +382,7 @@
         </div>
       </div>
 
-      <div class="px-8 md:px-0">
+      <div class="px-8 md:px-0 mx-8 2xl:mx-0">
         <button
           class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-primary text-white px-3 py-2 text-sm font-medium shadow-sm focus:outline-none"
           type="submit"
@@ -428,6 +431,20 @@ export default {
   },
   data() {
     return {
+      campaign: {
+        name: "",
+        amountTickets: { name: "Escolha uma opção" },
+        category: { name: "Escolha uma opção" },
+        ticketPrice: "",
+        howRaffle: { name: "Escolha uma opção" },
+        country: { acronym: "BR", name: "Brasil" },
+        tel: "",
+        description: "",
+        minTickets: "",
+        maxTickets: "",
+        date: "",
+        timePayment: { name: "Escolha uma opção" },
+      },
       amountTickets: [
         { id: 1, name: "25 bilhetes - (00 à 24)" },
         { id: 2, name: "50 bilhetes - (00 à 49)" },
@@ -493,18 +510,12 @@ export default {
         { acronym: "IT", name: "Itália" },
         { acronym: "GB", name: "Reino Unido" },
       ],
-
-      selectedTickets: { name: "Escolha uma opção" },
-      selectedCategory: { name: "Escolha uma opção" },
-      selectedHowRaffle: { name: "Escolha uma opção" },
-      selectedCountry: { acronym: "BR", name: "Brasil" },
-      name: "",
-      tel: "",
     };
   },
   methods: {
     goEditCampaign() {
       this.$store.commit("openEditCampaign");
+      this.$store.commit("setCampaign", this.campaign);
     },
   },
 };

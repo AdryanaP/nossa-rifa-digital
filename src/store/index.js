@@ -5,6 +5,21 @@ export default createStore({
     newCampaignOpen: false,
     editCampaignOpen: false,
     myCampaignsOpen: true,
+    campaign: {
+      name: "",
+      amountTickets: { name: "Escolha uma opção" },
+      category: { name: "Escolha uma opção" },
+      ticketPrice: "",
+      howRaffle: { name: "Escolha uma opção" },
+      country: { acronym: "BR", name: "Brasil" },
+      tel: "",
+      description: "",
+      minTickets: "",
+      maxTickets: "",
+      date: "",
+      timePayment: { name: "Escolha uma opção" },
+      paid: false,
+    },
   },
   getters: {},
   mutations: {
@@ -14,14 +29,17 @@ export default createStore({
       state.myCampaignsOpen = false;
     },
     openEditCampaign(state) {
-        state.newCampaignOpen = false;
-        state.editCampaignOpen = true;
-        state.myCampaignsOpen = false;
+      state.newCampaignOpen = false;
+      state.editCampaignOpen = true;
+      state.myCampaignsOpen = false;
     },
     openMyCampaigns(state) {
-        state.newCampaignOpen = false;
-        state.editCampaignOpen = false;
-        state.myCampaignsOpen = true;
-      },
+      state.newCampaignOpen = false;
+      state.editCampaignOpen = false;
+      state.myCampaignsOpen = true;
+    },
+    setCampaign(state, value) {
+      state.campaign = value
+    }
   },
 });

@@ -110,7 +110,7 @@
 
     <!-- Static sidebar for desktop -->
     <div
-      class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col border"
+      class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col border bg-white"
     >
       <!-- Sidebar component, swap this element with another sidebar if you like -->
       <div class="flex flex-grow flex-col overflow-y-auto pt-5 pb-4">
@@ -219,7 +219,7 @@
           </div>
         </div>
       </div>
-      <main class="flex-1 pb-8 bg-primaryLight h-full">
+      <main class="flex-1 pb-8 h-full">
         <!-- Page header -->
         <div class="bg-white shadow">
           <div class="px-4 sm:px-6 lg:mx-auto lg:max-w-6xl lg:px-8">
@@ -337,7 +337,7 @@ export default {
     return {
       sidebarOpen: false,
       navigation: [
-        { name: "Minhas Rifas", href: "#", icon: TicketIcon, current: true },
+        { name: "Minhas Rifas", href: "/", icon: TicketIcon, current: true },
         {
           name: "Histórico de Vendas",
           href: "#",
@@ -377,13 +377,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 html {
   height: 100%;
-  background: gray;
 }
 
 body {
   height: 100%;
+  background-color: #f9fafb !important;
 }
 </style>

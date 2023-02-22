@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mx-auto max-w-6xl py-10 md:py-20">
-      <div class="flex items-center justify-between mb-10 px-8 md:px-0">
+      <div class="flex items-center justify-between mb-10 px-8 2xl:px-0 ">
         <h2
           class="text-2xl lg:text-3xl font-bold leading-6 text-gray-900 flex gap-2 items-center"
         >
@@ -15,7 +15,7 @@
           <EyeIcon class="h-4 w-4" />
         </button>
       </div>
-      <form class="flex flex-col gap-6 px-8 md:px-0">
+      <form class="flex flex-col gap-6 px-8 2xl:px-0">
         <div>
           <label for="name" class="font-medium text-sm flex items-center gap-1"
             >Nome
@@ -28,6 +28,7 @@
               id="name"
               name="name"
               type="text"
+              v-model="campaign.name"
               required=""
               placeholder="Nome da sua rifa digital"
               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
@@ -35,7 +36,7 @@
           </div>
         </div>
 
-        <Listbox as="div" v-model="selectedTickets">
+        <Listbox as="div" v-model="campaign.amountTickets">
           <ListboxLabel class="font-medium text-sm flex gap-1 items-center"
             >Quantidade de bilhetes
           </ListboxLabel>
@@ -43,7 +44,7 @@
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
             >
-              <span class="block truncate">{{ selectedTickets.name }}</span>
+              <span class="block truncate">{{ campaign.amountTickets.name }}</span>
               <span
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
               >
@@ -99,7 +100,7 @@
           </div>
         </Listbox>
 
-        <Listbox as="div" v-model="selectedCategory">
+        <Listbox as="div" v-model="campaign.category">
           <ListboxLabel class="font-medium text-sm flex items-center gap-1"
             >Categoria
             <span title="Categoria da sua campanha">
@@ -110,7 +111,7 @@
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
             >
-              <span class="block truncate">{{ selectedCategory.name }}</span>
+              <span class="block truncate">{{ campaign.category.name }}</span>
               <span
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
               >
@@ -179,6 +180,7 @@
             <textarea
               id="description"
               name="description"
+              v-model="campaign.description"
               rows="4"
               cols="50"
               required=""
@@ -230,6 +232,7 @@
               <input
                 id="ticketsMin"
                 name="ticketsMin"
+                v-model="campaign.minTickets"
                 type="number"
                 required=""
                 placeholder="0"
@@ -257,6 +260,7 @@
                 id="ticketsMax"
                 name="ticketsMax"
                 type="number"
+                v-model="campaign.maxTickets"
                 required=""
                 placeholder="300"
                 class="block w-full appearance-none rounded-r-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
@@ -281,6 +285,7 @@
               name="ticketPrice"
               type="tel"
               required=""
+              v-model="campaign.ticketPrice" 
               v-mask="'###.###.###.###.###.###.###.###.###.###,##'"
               placeholder="0,00"
               class="block w-full appearance-none rounded-r-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
@@ -288,7 +293,7 @@
           </div>
         </div>
 
-        <Listbox as="div" v-model="selectedHowRaffle">
+        <Listbox as="div"  v-model="campaign.howRaffle">
           <ListboxLabel class="block font-medium text-sm"
             >Local do sorteio
             <span
@@ -301,7 +306,7 @@
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
             >
-              <span class="block truncate">{{ selectedHowRaffle.name }}</span>
+              <span class="block truncate">{{ campaign.howRaffle.name }}</span>
               <span
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
               >
@@ -367,15 +372,15 @@
           ></label>
 
           <div class="flex items-center gap-2 mt-1 w-full">
-            <Listbox as="div" v-model="selectedCountry">
+            <Listbox as="div" v-model="campaign.country">
               <div class="relative">
                 <ListboxButton
                   class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
                 >
                   <span class="inline-flex w-full truncate">
-                    <span class="truncate">{{ selectedCountry.acronym }}</span>
+                    <span class="truncate">{{ campaign.country.acronym }}</span>
                     <span class="ml-2 truncate text-gray-500">{{
-                      selectedCountry.name
+                      campaign.country.name
                     }}</span>
                   </span>
                   <span
@@ -448,6 +453,7 @@
                 name="tel"
                 type="tel"
                 required=""
+                v-model="campaign.tel"
                 v-mask="'(##) #####-####'"
                 placeholder="Telefone / WhatsApp"
                 class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
@@ -529,13 +535,14 @@
               id="date"
               name="date"
               type="datetime-local"
+              v-model="campaign.date"
               required=""
               class="block mt-2 appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
             />
           </div>
         </div>
 
-        <Listbox as="div" v-model="selectedTimePayment">
+        <Listbox as="div"  v-model="campaign.timePayment">
           <ListboxLabel class="block font-medium text-sm"
             >Tempo para pagamento
             <span
@@ -547,7 +554,7 @@
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
             >
-              <span class="block truncate">{{ selectedTimePayment.name }}</span>
+              <span class="block truncate">{{ campaign.timePayment.name }}</span>
               <span
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
               >
@@ -604,7 +611,7 @@
         </Listbox>
       </form>
 
-      <div class="grid grid-cols-2 gap-2 px-8 md:px-0 mt-6">
+      <div class="grid grid-cols-2 gap-2 px-8 md:px-0 mt-6 mx-8 2xl:mx-0">
         <button
           type="button"
           class="inline-flex items-center justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
@@ -621,7 +628,7 @@
         </button>
       </div>
 
-      <div class="px-8 md:px-0 mt-8">
+      <div class="px-8 md:px-0 mt-8 mx-8 2xl:mx-0">
         <button
           class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-primary text-white px-3 py-2 text-sm font-medium shadow-sm focus:outline-none"
           type="submit"
@@ -756,16 +763,13 @@ export default {
         { id: 6, name: "3 dias" },
         { id: 7, name: "15 dias" },
       ],
-
-      selectedTickets: { name: "Escolha uma opção" },
-      selectedCategory: { name: "Escolha uma opção" },
-      selectedHowRaffle: { name: "Escolha uma opção" },
-      selectedTimePayment: { name: "Escolha uma opção" },
-      selectedCountry: { acronym: "BR", name: "Brasil" },
-      name: "",
-      tel: "",
       enabled: false,
     };
+  },
+  computed: {
+    campaign() {
+      return this.$store.state.campaign;
+    },
   },
 };
 </script>

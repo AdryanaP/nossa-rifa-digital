@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center items-center h-screen">
+  <div class="flex flex-col justify-center items-center h-screen bg-white">
     <img src="@/assets/logo.png" alt="logo" class="w-44" />
     <form class="flex flex-col gap-6 my-10 md:w-96">
       <div
@@ -106,3 +106,4 @@ export default {
   },
 };
 </script>
+

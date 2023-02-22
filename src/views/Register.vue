@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center items-center h-screen">
+  <div class="flex flex-col justify-center items-center h-screen bg-white">
     <img src="@/assets/logo.png" alt="logo" class="w-44" />
     <h1 class="text-lg md:text-2xl font-semibold my-8">Faça seu cadastro</h1>
     <form class="flex flex-col gap-6 md:w-96">

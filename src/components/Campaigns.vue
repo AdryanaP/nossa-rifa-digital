@@ -1,45 +1,58 @@
 <template>
   <div class="mt-8">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <h2 class="text-lg font-medium leading-6 text-gray-900">Campanhas</h2>
-      <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <h2 class="text-lg font-medium leading-6 text-gray-900">
+        <TicketIcon
+          class="h-6 w-6 inline-block mr-1"
+          aria-hidden="true"
+        />Minhas Campanhas
+      </h2>
+      <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2">
         <!-- Card -->
         <div
-          v-for="card in cards"
-          :key="card.name"
-          class="overflow-hidden rounded-lg bg-white shadow"
+          :class="[
+            campaign.paid ? 'border-transparent' : 'border-red-500',
+            'overflow-hidden rounded-2xl bg-white shadow border',
+          ]"
         >
-          <div class="p-5">
-            <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <component
-                  :is="card.icon"
-                  class="h-6 w-6 text-gray-400"
-                  aria-hidden="true"
-                />
-              </div>
-              <div class="ml-5 w-0 flex-1">
-                <dl>
-                  <dt class="truncate text-sm font-medium text-gray-500">
-                    {{ card.name }}
-                  </dt>
-                  <dd>
-                    <div class="text-lg font-medium text-gray-900">
-                      {{ card.amount }}
-                    </div>
-                  </dd>
-                </dl>
-              </div>
+          <img
+            src="@/assets/pessoas-em-show-com-textura-de-camada-de-fumaca.jpg"
+            alt="imagem cover"
+            class="h-28 w-full object-cover object-center"
+          />
+
+          <div class="m-4">
+            <div class="flex justify-between items-center">
+              <p>Teste 5</p>
+              <button class="rounded-lg p-2 bg-gray-700">
+                <EllipsisVerticalIcon class="h-4 w-4 text-white" aria-hidden="true" />
+              </button>
+            </div>
+            <div class="flex flex-col md:grid md:grid-cols-2 gap-2 mt-4">
+              <button
+                type="button"
+                class="inline-flex items-center justify-center gap-3 rounded-lg border bg-gray-700 border-gray-300 px-4 py-2 text-sm font-medium text-white uppercase shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              >
+                <TicketIcon class="h-4 w-4 text-white" />
+                Publicar
+              </button>
+              <button
+                type="button"
+                class="inline-flex items-center justify-center gap-3 rounded-lg border bg-gray-700 border-gray-300 px-4 py-2 text-sm font-medium text-white uppercase shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              >
+                <EyeIcon class="h-4 w-4 text-white" />
+                Visualizar Demonstração
+              </button>
             </div>
           </div>
-          <div class="bg-gray-50 px-5 py-3">
-            <div class="text-sm">
-              <a
-                :href="card.href"
-                class="font-medium text-cyan-700 hover:text-cyan-900"
-                >View all</a
-              >
-            </div>
+          <div
+            v-if="!campaign.paid"
+            class="bg-red-500 flex flex-col items-center p-2"
+          >
+            <p class="text-white font-medium">Faça o pagamento em até</p>
+            <p class="text-white">
+              2 dias e 23 horas e 21 minutos e 33 segundos
+            </p>
           </div>
         </div>
       </div>
@@ -48,13 +61,18 @@
 </template>
 
 <script>
-import { TicketIcon, ScaleIcon } from "@heroicons/vue/24/outline";
+import {
+  TicketIcon,
+  EyeIcon,
+  EllipsisVerticalIcon,
+} from "@heroicons/vue/20/solid";
 
 export default {
   name: "CampaignsVue",
   components: {
     TicketIcon,
-    ScaleIcon,
+    EyeIcon,
+    EllipsisVerticalIcon,
   },
   data() {
     return {
@@ -62,11 +80,15 @@ export default {
         {
           name: "Account balance",
           href: "#",
-          icon: ScaleIcon,
           amount: "$30,659.45",
         },
       ],
     };
+  },
+  computed: {
+    campaign() {
+      return this.$store.state.campaign;
+    },
   },
 };
 </script>
