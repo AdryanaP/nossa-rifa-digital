@@ -57,7 +57,7 @@
                 <img class="w-36" src="@/assets/logo.png" alt="logo" />
               </div>
               <nav
-                class="mt-5 h-full flex-shrink-0 divide-y divide-secondary overflow-y-auto"
+                class="mt-5 h-full flex-shrink-0 overflow-y-auto"
                 aria-label="Sidebar"
               >
                 <div class="space-y-1 px-2">
@@ -67,9 +67,9 @@
                     :href="item.href"
                     :class="[
                       item.current
-                        ? 'bg-primary text-white'
-                        : 'hover:text-white hover:bg-secondary',
-                      'group flex items-center px-2 py-2 text-base font-medium rounded-md transition',
+                        ? 'bg-primaryMedium text-primary'
+                        : 'hover:text-gray-800',
+                      'group flex items-center px-2 py-2 text-base font-medium rounded-md transition text-gray-500',
                     ]"
                     :aria-current="item.current ? 'page' : undefined"
                   >
@@ -80,23 +80,6 @@
                     />
                     {{ item.name }}
                   </a>
-                </div>
-                <div class="mt-6 pt-6">
-                  <div class="space-y-1 px-2">
-                    <a
-                      v-for="item in secondaryNavigation"
-                      :key="item.name"
-                      :href="item.href"
-                      class="group flex items-center rounded-md px-2 py-2 text-base font-medium hover:bg-secondary hover:text-white transition"
-                    >
-                      <component
-                        :is="item.icon"
-                        class="mr-4 h-6 w-6"
-                        aria-hidden="true"
-                      />
-                      {{ item.name }}
-                    </a>
-                  </div>
                 </div>
               </nav>
             </DialogPanel>
@@ -112,13 +95,14 @@
     <div
       class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col border bg-white"
     >
-      <!-- Sidebar component, swap this element with another sidebar if you like -->
+      <!-- Sidebar component, swap this element with another sidebar if you like 
+      -->
       <div class="flex flex-grow flex-col overflow-y-auto pt-5 pb-4">
         <div class="flex flex-shrink-0 items-center justify-center px-4 my-6">
           <img class="w-52" src="@/assets/logo.png" alt="logo" />
         </div>
         <nav
-          class="mt-5 flex flex-1 flex-col divide-y divide-secondary overflow-y-auto"
+          class="mt-5 flex flex-1 flex-col overflow-y-auto"
           aria-label="Sidebar"
         >
           <div class="space-y-1 px-2">
@@ -128,9 +112,9 @@
               :href="item.href"
               :class="[
                 item.current
-                  ? 'bg-primary text-white'
-                  : 'hover:text-white hover:bg-secondary',
-                'group flex items-center px-2 py-2 text-sm leading-6 font-medium rounded-md transition',
+                  ? 'bg-primaryMedium text-primary'
+                  : 'hover:text-gray-800',
+                'group flex items-center px-2 py-2 text-base font-medium rounded-md transition text-gray-500',
               ]"
               :aria-current="item.current ? 'page' : undefined"
             >
@@ -141,23 +125,6 @@
               />
               {{ item.name }}
             </a>
-          </div>
-          <div class="mt-6 pt-6">
-            <div class="space-y-1 px-2">
-              <a
-                v-for="item in secondaryNavigation"
-                :key="item.name"
-                :href="item.href"
-                class="group flex items-center rounded-md px-2 py-2 text-sm font-medium leading-6 hover:bg-secondary hover:text-white transition"
-              >
-                <component
-                  :is="item.icon"
-                  class="mr-4 h-6 w-6"
-                  aria-hidden="true"
-                />
-                {{ item.name }}
-              </a>
-            </div>
           </div>
         </nav>
       </div>
@@ -220,39 +187,6 @@
         </div>
       </div>
       <main class="flex-1 pb-8 h-full">
-        <!-- Page header -->
-        <div class="bg-white shadow">
-          <div class="px-4 sm:px-6 lg:mx-auto lg:max-w-6xl lg:px-8">
-            <div
-              class="py-6 md:flex md:items-center md:justify-between lg:border-t lg:border-gray-200"
-            >
-              <div class="min-w-0 flex-1">
-                <!-- Profile -->
-                <div class="flex items-center">
-                  <div>
-                    <div class="flex items-center">
-                      <h1
-                        class="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:leading-9"
-                      >
-                        Olá, Fulana de Tal
-                      </h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
-                <button
-                  type="button"
-                  class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-                  @click="newCampaign"
-                >
-                  Criar Campanha
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <Campaigns v-if="myCampaignsOpen" />
         <NewCampaign v-if="newCampaignOpen" />
         <EditCampaign v-if="editCampaignOpen" />
@@ -344,9 +278,12 @@ export default {
           icon: ClockIcon,
           current: false,
         },
-      ],
-      secondaryNavigation: [
-        { name: "Sair", href: "#", icon: ArrowRightOnRectangleIcon },
+        {
+          name: "Sair",
+          href: "#",
+          icon: ArrowRightOnRectangleIcon,
+          current: false,
+        },
       ],
       cards: [
         {
@@ -367,11 +304,6 @@ export default {
     },
     myCampaignsOpen() {
       return this.$store.state.myCampaignsOpen;
-    },
-  },
-  methods: {
-    newCampaign() {
-      this.$store.commit("openNewCampaign");
     },
   },
 };

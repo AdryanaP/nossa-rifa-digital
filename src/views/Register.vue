@@ -1,8 +1,7 @@
 <template>
-  <div class="flex flex-col justify-center items-center h-screen bg-white">
+  <div class="flex flex-col justify-center items-center h-screen bg-gray-50">
     <img src="@/assets/logo.png" alt="logo" class="w-44" />
-    <h1 class="text-lg md:text-2xl font-semibold my-8">Faça seu cadastro</h1>
-    <form class="flex flex-col gap-6 md:w-96">
+    <form class="flex flex-col gap-6 px-8 md:p-0 w-full sm:w-96 my-8">
       <div
         class="relative rounded-md border border-gray-300 px-3 py-2 shadow-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary"
       >
@@ -38,6 +37,7 @@
           placeholder="exemplo@email.com"
         />
       </div>
+
       <div
         class="pr-10 relative rounded-md border border-gray-300 px-3 py-2 shadow-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary"
       >

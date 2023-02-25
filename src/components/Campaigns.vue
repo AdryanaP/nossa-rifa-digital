@@ -1,13 +1,41 @@
 <template>
   <div class="mt-8">
     <div class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-20">
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center">
+            <div>
+              <div class="flex items-center">
+                <h1
+                  class="text-2xl leading-7 text-gray-900 sm:truncate sm:leading-9"
+                >
+                  Olá, <span class="font-semibold">Fulana de Tal</span>!
+                </h1>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
+            <button
+              type="button"
+              class="inline-flex items-center uppercase rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+              @click="newCampaign"
+            >
+              <TicketIcon
+                class="h-4 w-4 inline-block mr-2"
+                aria-hidden="true"
+              />
+              Criar Campanha
+            </button>
+          </div>
+        </div>
+      </div>
       <h2 class="text-lg font-medium leading-6 text-gray-900">
         <TicketIcon
           class="h-6 w-6 inline-block mr-1"
           aria-hidden="true"
         />Minhas Campanhas
       </h2>
-      <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <div class="mt-4 grid grid-cols-1 gap-5 sm:grid-cols-2">
         <!-- Card -->
         <div
           :class="[
@@ -25,7 +53,10 @@
             <div class="flex justify-between items-center">
               <p>Teste 5</p>
               <button class="rounded-lg p-2 bg-gray-700">
-                <EllipsisVerticalIcon class="h-4 w-4 text-white" aria-hidden="true" />
+                <EllipsisVerticalIcon
+                  class="h-4 w-4 text-white"
+                  aria-hidden="true"
+                />
               </button>
             </div>
             <div class="flex flex-col md:grid md:grid-cols-2 gap-2 mt-4">
@@ -88,6 +119,11 @@ export default {
   computed: {
     campaign() {
       return this.$store.state.campaign;
+    },
+  },
+  methods: {
+    newCampaign() {
+      this.$store.commit("openNewCampaign");
     },
   },
 };
