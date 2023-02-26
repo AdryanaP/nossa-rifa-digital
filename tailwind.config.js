@@ -8,6 +8,9 @@ module.exports = {
         secondary: "#f04f37",
         primaryLight: "#f9fafb",
         primaryMedium: "#ecfdec"
+      },
+      maxWidth: {
+        "7xl": "80rem"
       }
     },
   },

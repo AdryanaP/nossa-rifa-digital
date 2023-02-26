@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "@/views/Home.vue";
+import Settings from "@/views/Settings.vue";
 import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import ForgotPassword from "@/views/ForgotPassword.vue";
@@ -9,6 +10,11 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/configuracoes",
+    name: "Settings",
+    component: Settings,
   },
   {
     path: "/login",

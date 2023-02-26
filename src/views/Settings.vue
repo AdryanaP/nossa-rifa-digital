@@ -96,7 +96,7 @@
       class="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col border bg-white"
     >
       <!-- Sidebar component, swap this element with another sidebar if you like 
-      -->
+        -->
       <div class="flex flex-grow flex-col overflow-y-auto pt-5 pb-4">
         <div class="flex flex-shrink-0 items-center justify-center px-4 my-6">
           <img class="w-52" src="@/assets/logo.png" alt="logo" />
@@ -150,7 +150,7 @@
             <Menu as="div" class="relative ml-3">
               <div>
                 <MenuButton
-                  class="flex max-w-xs items-center rounded-full p-2 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 lg:rounded-md lg:p-2 lg:hover:bg-gray-50"
+                  class="flex max-w-xs items-center p-2 rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 lg:rounded-md lg:p-2 lg:hover:bg-gray-50"
                 >
                   <p>Fulana de Tal</p>
                   <ChevronDownIcon
@@ -180,7 +180,6 @@
                       >Configuracoes</a
                     >
                   </MenuItem>
-
                   <MenuItem v-slot="{ active }">
                     <a
                       href="/login"
@@ -197,10 +196,50 @@
           </div>
         </div>
       </div>
-      <main class="flex-1 pb-8 h-full">
-        <Campaigns v-if="myCampaignsOpen" />
-        <NewCampaign v-if="newCampaignOpen" />
-        <EditCampaign v-if="editCampaignOpen" />
+      <main class="flex-1 pb-8 h-full md:grid grid-cols-4 lg:36 2xl:mx-48">
+        <div class="flex flex-col gap-2 mx-2 my-8 rounded">
+          <button
+            :class="[
+              myAccountOpen
+                ? 'bg-white text-primary font-medium'
+                : 'bg-transparent text-gray-600 hover:text-black',
+              'flex items-center gap-3 text-sm p-2',
+            ]"
+            @click="myAccount"
+          >
+            <UserCircleIcon class="ml-1 h-6 w-6" aria-hidden="true" /> Minha
+            Conta
+          </button>
+          <button
+            :class="[
+              paymentOpen
+                ? 'bg-white text-primary font-medium'
+                : 'bg-transparent text-gray-600 hover:text-black',
+              'flex items-center gap-3 text-sm p-2',
+            ]"
+            @click="payment"
+          >
+            <CurrencyDollarIcon class="ml-1 h-6 w-6" aria-hidden="true" /> Meios
+            de Pagamento
+          </button>
+          <button
+            :class="[
+              socialMediaOpen
+                ? 'bg-white text-primary font-medium'
+                : 'bg-transparent text-gray-600 hover:text-black',
+              'flex items-center gap-3 text-sm p-2',
+            ]"
+            @click="socialMedia"
+          >
+            <UserPlusIcon class="ml-1 h-6 w-6" aria-hidden="true" /> Redes
+            Sociais
+          </button>
+        </div>
+        <div class="col-span-3">
+          <MyAccount v-if="myAccountOpen" />
+          <Payment v-if="paymentOpen" />
+          <SocialMedia v-if="socialMediaOpen" />
+        </div>
       </main>
     </div>
   </div>
@@ -232,6 +271,9 @@ import {
   UserGroupIcon,
   XMarkIcon,
   Cog8ToothIcon,
+  UserCircleIcon,
+  CurrencyDollarIcon,
+  UserPlusIcon,
 } from "@heroicons/vue/24/outline";
 import {
   BanknotesIcon,
@@ -241,12 +283,12 @@ import {
   ChevronRightIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/vue/20/solid";
-import Campaigns from "@/components/Campaigns.vue";
-import NewCampaign from "@/components/NewCampaign.vue";
-import EditCampaign from "@/components/EditCampaign.vue";
+import MyAccount from "@/components/MyAccount.vue";
+import SocialMedia from "@/components/SocialMedia.vue";
+import Payment from "@/components/Payment.vue";
 
 export default {
-  name: "HomeVue",
+  name: "SettingsVue",
   components: {
     Dialog,
     DialogPanel,
@@ -260,6 +302,8 @@ export default {
     Bars3CenterLeftIcon,
     BellIcon,
     ClockIcon,
+    UserPlusIcon,
+    CurrencyDollarIcon,
     CogIcon,
     CreditCardIcon,
     DocumentChartBarIcon,
@@ -275,9 +319,11 @@ export default {
     ChevronDownIcon,
     ChevronRightIcon,
     MagnifyingGlassIcon,
-    Campaigns,
-    NewCampaign,
-    EditCampaign,
+    Cog8ToothIcon,
+    UserCircleIcon,
+    MyAccount,
+    SocialMedia,
+    Payment,
   },
   data() {
     return {
@@ -314,14 +360,25 @@ export default {
     };
   },
   computed: {
-    newCampaignOpen() {
-      return this.$store.state.newCampaignOpen;
+    myAccountOpen() {
+      return this.$store.state.myAccountOpen;
     },
-    editCampaignOpen() {
-      return this.$store.state.editCampaignOpen;
+    paymentOpen() {
+      return this.$store.state.paymentOpen;
     },
-    myCampaignsOpen() {
-      return this.$store.state.myCampaignsOpen;
+    socialMediaOpen() {
+      return this.$store.state.socialMediaOpen;
+    },
+  },
+  methods: {
+    myAccount() {
+      this.$store.commit("openMyAccount");
+    },
+    payment() {
+      this.$store.commit("openPayment");
+    },
+    socialMedia() {
+      this.$store.commit("openSocialMedia");
     },
   },
 };

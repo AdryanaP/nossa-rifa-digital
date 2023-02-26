@@ -5,6 +5,9 @@ export default createStore({
     newCampaignOpen: false,
     editCampaignOpen: false,
     myCampaignsOpen: true,
+    myAccountOpen: true,
+    paymentOpen: false,
+    socialMediaOpen: false,
     campaign: {
       name: "",
       amountTickets: { name: "Escolha uma opção" },
@@ -37,6 +40,21 @@ export default createStore({
       state.newCampaignOpen = false;
       state.editCampaignOpen = false;
       state.myCampaignsOpen = true;
+    },
+    openMyAccount(state) {
+      state.myAccountOpen = true;
+      state.paymentOpen = false;
+      state.socialMediaOpen = false;
+    },
+    openPayment(state) {
+      state.myAccountOpen = false;
+      state.paymentOpen = true;
+      state.socialMediaOpen = false;
+    },
+    openSocialMedia(state) {
+      state.myAccountOpen = false;
+      state.paymentOpen = false;
+      state.socialMediaOpen = true;
     },
     setCampaign(state, value) {
       state.campaign = value
