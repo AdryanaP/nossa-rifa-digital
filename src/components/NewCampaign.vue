@@ -382,7 +382,7 @@
         </div>
       </div>
 
-      <div class="px-8 md:px-0 mx-8 2xl:mx-0">
+      <div class="px-0 mx-8 2xl:mx-0">
         <button
           class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-primary text-white px-3 py-2 text-sm font-medium shadow-sm focus:outline-none"
           type="submit"

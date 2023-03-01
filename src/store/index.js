@@ -5,6 +5,7 @@ export default createStore({
     newCampaignOpen: false,
     editCampaignOpen: false,
     myCampaignsOpen: true,
+    finalizeCampaignOpen: false,
     myAccountOpen: true,
     paymentOpen: false,
     socialMediaOpen: false,
@@ -30,16 +31,25 @@ export default createStore({
       state.newCampaignOpen = true;
       state.editCampaignOpen = false;
       state.myCampaignsOpen = false;
+      state.finalizeCampaignOpen = false;
     },
     openEditCampaign(state) {
       state.newCampaignOpen = false;
       state.editCampaignOpen = true;
       state.myCampaignsOpen = false;
+      state.finalizeCampaignOpen = false;
     },
     openMyCampaigns(state) {
       state.newCampaignOpen = false;
       state.editCampaignOpen = false;
       state.myCampaignsOpen = true;
+      state.finalizeCampaignOpen = false;
+    },
+    openFinalizeCampaign(state) {
+      state.newCampaignOpen = false;
+      state.editCampaignOpen = false;
+      state.myCampaignsOpen = false;
+      state.finalizeCampaignOpen = true;
     },
     openMyAccount(state) {
       state.myAccountOpen = true;

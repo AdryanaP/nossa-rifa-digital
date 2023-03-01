@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="mx-auto max-w-6xl py-10 md:py-20">
-      <div class="flex items-center justify-between mb-10 px-8 2xl:px-0 ">
+      <div class="flex items-center justify-between mb-10 px-8 2xl:px-0">
         <h2
           class="text-2xl lg:text-3xl font-bold leading-6 text-gray-900 flex gap-2 items-center"
         >
@@ -44,7 +44,9 @@
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
             >
-              <span class="block truncate">{{ campaign.amountTickets.name }}</span>
+              <span class="block truncate">{{
+                campaign.amountTickets.name
+              }}</span>
               <span
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
               >
@@ -285,7 +287,7 @@
               name="ticketPrice"
               type="tel"
               required=""
-              v-model="campaign.ticketPrice" 
+              v-model="campaign.ticketPrice"
               v-mask="'###.###.###.###.###.###.###.###.###.###,##'"
               placeholder="0,00"
               class="block w-full appearance-none rounded-r-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
@@ -293,7 +295,7 @@
           </div>
         </div>
 
-        <Listbox as="div"  v-model="campaign.howRaffle">
+        <Listbox as="div" v-model="campaign.howRaffle">
           <ListboxLabel class="block font-medium text-sm"
             >Local do sorteio
             <span
@@ -542,7 +544,7 @@
           </div>
         </div>
 
-        <Listbox as="div"  v-model="campaign.timePayment">
+        <Listbox as="div" v-model="campaign.timePayment">
           <ListboxLabel class="block font-medium text-sm"
             >Tempo para pagamento
             <span
@@ -554,7 +556,9 @@
             <ListboxButton
               class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
             >
-              <span class="block truncate">{{ campaign.timePayment.name }}</span>
+              <span class="block truncate">{{
+                campaign.timePayment.name
+              }}</span>
               <span
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
               >
@@ -611,27 +615,30 @@
         </Listbox>
       </form>
 
-      <div class="grid grid-cols-2 gap-2 px-8 md:px-0 mt-6 mx-8 2xl:mx-0">
+      <div
+        class="sm:grid grid-cols-2 gap-2 sm:space-y-0 space-y-4 px-0 mt-6 mx-8 2xl:mx-0"
+      >
         <button
           type="button"
-          class="inline-flex items-center justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          class="inline-flex items-center w-full justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         >
           <TrophyIcon class="h-4 w-4" />
           Editar prêmios
         </button>
         <button
           type="button"
-          class="inline-flex items-center justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          class="inline-flex items-center w-full justify-center gap-3 rounded-md border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         >
           <BanknotesIcon class="h-4 w-4" />
           Editar promoções
         </button>
       </div>
 
-      <div class="px-8 md:px-0 mt-8 mx-8 2xl:mx-0">
+      <div class="md:px-0 mt-8 mx-8 2xl:mx-0">
         <button
           class="inline-flex items-center gap-2 rounded-md border border-gray-300 bg-primary text-white px-3 py-2 text-sm font-medium shadow-sm focus:outline-none"
           type="submit"
+          @click="goFinalizeCampaign"
         >
           Finalizar
           <ArrowRightIcon class="h-5 w-5" aria-hidden="true" />
@@ -769,6 +776,11 @@ export default {
   computed: {
     campaign() {
       return this.$store.state.campaign;
+    },
+  },
+  methods: {
+    goFinalizeCampaign() {
+      this.$store.commit("openFinalizeCampaign");
     },
   },
 };

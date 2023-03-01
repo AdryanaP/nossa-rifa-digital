@@ -201,6 +201,7 @@
         <Campaigns v-if="myCampaignsOpen" />
         <NewCampaign v-if="newCampaignOpen" />
         <EditCampaign v-if="editCampaignOpen" />
+        <FinalizeCampaign v-if="finalizeCampaignOpen" />
       </main>
     </div>
   </div>
@@ -244,6 +245,7 @@ import {
 import Campaigns from "@/components/Campaigns.vue";
 import NewCampaign from "@/components/NewCampaign.vue";
 import EditCampaign from "@/components/EditCampaign.vue";
+import FinalizeCampaign from "@/components/FinalizeCampaign.vue";
 
 export default {
   name: "HomeVue",
@@ -256,6 +258,7 @@ export default {
     MenuItems,
     TransitionChild,
     TransitionRoot,
+    FinalizeCampaign,
     ArrowRightOnRectangleIcon,
     Bars3CenterLeftIcon,
     BellIcon,
@@ -323,6 +326,9 @@ export default {
     myCampaignsOpen() {
       return this.$store.state.myCampaignsOpen;
     },
+    finalizeCampaignOpen() {
+      return this.$store.state.finalizeCampaignOpen;
+    }
   },
 };
 </script>
