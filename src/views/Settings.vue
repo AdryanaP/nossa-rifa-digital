@@ -329,7 +329,7 @@ export default {
     return {
       sidebarOpen: false,
       navigation: [
-        { name: "Minhas Rifas", href: "/", icon: TicketIcon, current: true },
+        { name: "Minhas Rifas", href: "/", icon: TicketIcon, current: false },
         {
           name: "Histórico de Vendas",
           href: "#",
@@ -340,7 +340,7 @@ export default {
           name: "Configurações",
           href: "/configuracoes",
           icon: Cog8ToothIcon,
-          current: false,
+          current: true,
         },
         {
           name: "Sair",
