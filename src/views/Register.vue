@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col justify-center items-center h-screen bg-gray-50">
     <img src="@/assets/logo.png" alt="logo" class="w-44" />
-    <form class="flex flex-col gap-6 px-8 md:p-0 w-full sm:w-96 my-8">
+    <form class="flex flex-col gap-6 my-10 px-8 md:p-0 w-full md:w-96">
       <div
         class="relative rounded-md border border-gray-300 px-3 py-2 shadow-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary"
       >

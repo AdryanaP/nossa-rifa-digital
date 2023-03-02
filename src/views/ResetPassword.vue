@@ -5,11 +5,12 @@
       <div
         class="relative rounded-md border border-gray-300 px-3 py-2 shadow-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary"
       >
-
         <div
           class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
         >
-          <span class="text-gray-500 sm:text-sm">@</span>
+          <span class="text-gray-500 sm:text-sm"
+            ><AtSymbolIcon class="h-5 w-5 text-gray-400" aria-hidden="true"
+          /></span>
         </div>
         <input
           type="email"
@@ -17,8 +18,27 @@
           id="email"
           v-model="email"
           autocomplete="email"
-          class="block outline-none w-full border-0 pl-6 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+          class="block outline-none w-full border-0 pl-7 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
           placeholder="Email"
+        />
+      </div>
+
+      <div
+        class="relative rounded-md border border-gray-300 px-3 py-2 shadow-sm focus-within:border-primary focus-within:ring-1 focus-within:ring-primary"
+      >
+        <div
+          class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3"
+        >
+          <span class="text-gray-500 sm:text-sm"><KeyIcon class="w-5" /></span>
+        </div>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+          autocomplete="password"
+          class="block outline-none w-full border-0 pl-7 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+          placeholder="Nova senha"
         />
       </div>
 
@@ -26,7 +46,7 @@
         type="submit"
         class="flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-offset-0"
       >
-        Recuperar
+        Trocar senha
       </button>
       <router-link to="/login" class="text-center"
         >Deseja fazer login?
@@ -37,8 +57,11 @@
 </template>
 
 <script>
+import { KeyIcon, AtSymbolIcon } from "@heroicons/vue/20/solid";
+
 export default {
-  name: "ForgotPassword",
+  name: "ResetPassword",
+  components: { KeyIcon, AtSymbolIcon },
   data() {
     return {
       email: "",
