@@ -5,6 +5,7 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import ForgotPassword from "@/views/ForgotPassword.vue";
 import ResetPassword from "@/views/ResetPassword.vue";
+import RafflePage from "@/views/RafflePage.vue";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/resetar-senha",
     name: "ResetPassword",
     component: ResetPassword,
+  },
+  {
+    path: "/minha-rifa",
+    name: "RafflePage",
+    component: RafflePage,
   },
 ];
 
