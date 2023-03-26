@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <main class="max-w-5xl mx-auto pt-[72px]">
+    <div class="max-w-5xl mx-auto pt-[72px]">
       <section class="lg:pt-8">
         <div
           class="flex overflow-hidden relative lg:rounded-3xl lg:border bg-white"
@@ -228,7 +228,7 @@
           </div>
         </section>
       </div>
-    </main>
+    </div>
   </div>
 </template>
 

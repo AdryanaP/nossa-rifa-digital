@@ -246,6 +246,7 @@ import Campaigns from "@/components/Campaigns.vue";
 import NewCampaign from "@/components/NewCampaign.vue";
 import EditCampaign from "@/components/EditCampaign.vue";
 import FinalizeCampaign from "@/components/FinalizeCampaign.vue";
+import SalesHistory from "@/components/SalesHistory.vue";
 
 export default {
   name: "HomeVue",
@@ -259,6 +260,7 @@ export default {
     TransitionChild,
     TransitionRoot,
     FinalizeCampaign,
+    SalesHistory,
     ArrowRightOnRectangleIcon,
     Bars3CenterLeftIcon,
     BellIcon,
@@ -289,7 +291,7 @@ export default {
         { name: "Minhas Rifas", href: "/", icon: TicketIcon, current: true },
         {
           name: "Histórico de Vendas",
-          href: "#",
+          href: "/historico",
           icon: ClockIcon,
           current: false,
         },
@@ -328,6 +330,9 @@ export default {
     },
     finalizeCampaignOpen() {
       return this.$store.state.finalizeCampaignOpen;
+    },
+    salesHistoryOpen() {
+      return this.$store.state.salesHistoryOpen;
     }
   },
 };
