@@ -132,11 +132,11 @@
 
     <div class="flex flex-1 flex-col lg:pl-64 h-full">
       <div
-        class="flex h-16 flex-shrink-0 border-b border-gray-200 bg-white lg:border-none"
+        class="flex h-12 flex-shrink-0 border-b shadow bg-white"
       >
         <button
           type="button"
-          class="border-r border-gray-200 px-4 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 lg:hidden"
+          class="px-4 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary lg:hidden"
           @click="sidebarOpen = true"
         >
           <span class="sr-only">Open sidebar</span>

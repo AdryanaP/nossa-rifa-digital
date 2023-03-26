@@ -19,17 +19,6 @@
             </div>
           </div>
 
-          <div class="flex items-center gap-4 bg-black rounded-md px-6 py-3 my-4">
-            <ExclamationTriangleIcon class="w-20 h-20 md:w-16 md:h-16 lg:w-10 lg:h-10 text-yellow-500" />
-            <p class="text-white">
-              Você ainda não possui nenhum meio de pagamento para receber o
-              valor das vendas.
-              <button class="font-medium inline-block" @click="goConfig">
-                Clique aqui para configurar!
-              </button>
-            </p>
-          </div>
-
           <div
             v-if="campaigns.length > 0"
             class="my-6 flex justify-center sm:justify-start space-x-3 mb-8"
@@ -46,6 +35,18 @@
               Criar Campanha
             </button>
           </div>
+
+          <div class="flex items-center gap-4 bg-black rounded-md px-6 py-3 my-4">
+            <ExclamationTriangleIcon class="w-20 h-20 md:w-16 md:h-16 lg:w-10 lg:h-10 text-yellow-500" />
+            <p class="text-white">
+              Você ainda não possui nenhum meio de pagamento para receber o
+              valor das vendas.
+              <button class="font-medium inline-block" @click="goConfig">
+                Clique aqui para configurar!
+              </button>
+            </p>
+          </div>
+
         </div>
       </div>
       <h2 class="text-lg font-medium leading-6 text-gray-900">
