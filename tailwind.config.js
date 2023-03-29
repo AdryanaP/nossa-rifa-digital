@@ -11,6 +11,12 @@ module.exports = {
       },
       maxWidth: {
         "7xl": "80rem"
+      },
+      keyframes: {
+        fade: {
+          '0%': {opacity: '0'},
+          '100%': {opacity: '1'},
+        }
       }
     },
   },
