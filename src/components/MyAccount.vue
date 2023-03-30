@@ -5,29 +5,14 @@
     >
       <h1 class="text-lg font-medium">Minha Conta</h1>
       <form class="my-4 flex flex-col gap-8">
-        <div class="sm:grid grid-cols-2 gap-8 space-y-8 sm:space-y-0">
+        <div class="space-y-4">
           <div>
             <label for="name" class="block font-medium text-sm">Nome</label>
             <div class="mt-1">
               <input
                 id="name"
                 name="name"
-                v-model="account.name"
-                type="text"
-                required=""
-                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
-              />
-            </div>
-          </div>
-          <div>
-            <label for="lastName" class="block font-medium text-sm"
-              >Sobrenome</label
-            >
-            <div class="mt-1">
-              <input
-                id="lastName"
-                name="lastName"
-                v-model="account.lastName"
+                v-model="user.name"
                 type="text"
                 required=""
                 class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
@@ -41,24 +26,8 @@
               <input
                 id="email"
                 name="email"
-                v-model="account.email"
+                v-model="user.email"
                 type="email"
-                required=""
-                class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="nameExhibition" class="block font-medium text-sm"
-              >Nome de Exibição</label
-            >
-            <div class="mt-1">
-              <input
-                id="nameExhibition"
-                name="nameExhibition"
-                v-model="account.nameExhibition"
-                type="text"
                 required=""
                 class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
               />
@@ -67,15 +36,15 @@
         </div>
 
         <div class="flex items-center gap-2 mt-1 w-full">
-          <Listbox as="div" v-model="account.country">
+          <Listbox as="div" v-model="country">
             <div class="relative">
               <ListboxButton
                 class="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary focus:outline-none sm:text-sm"
               >
                 <span class="inline-flex w-full truncate">
-                  <span class="truncate">{{ account.country.acronym }}</span>
+                  <span class="truncate">{{ country.acronym }}</span>
                   <span class="ml-2 truncate text-gray-500">{{
-                    account.country.name
+                    country.name
                   }}</span>
                 </span>
                 <span
@@ -148,7 +117,7 @@
               name="tel"
               type="tel"
               required=""
-              v-model="account.tel"
+              v-model="user.profile.whatsapp"
               v-mask="'(##) #####-####'"
               placeholder="Telefone / WhatsApp"
               class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
@@ -220,7 +189,6 @@
           <button
             class="rounded-md bg-red-500 text-white px-4 py-3 text-sm font-medium shadow-sm focus:outline-none"
             type="submit"
-            @click="goEditCampaign"
           >
             Excluir
           </button>
@@ -250,15 +218,9 @@ export default {
   },
   data() {
     return {
+      user: "",
       deletePhrase: "",
-      account: {
-        name: "Fulana",
-        lastName: "de Tal",
-        email: "fulanadetal@gmail.com",
-        country: { acronym: "BR", name: "Brasil" },
-        tel: 21971484578,
-        nameExhibition: "",
-      },
+      country: { acronym: "BR", name: "Brasil" },
       countries: [
         { acronym: "BR", name: "Brasil" },
         { acronym: "US", name: "Estados Unidos" },
@@ -279,6 +241,11 @@ export default {
         { acronym: "GB", name: "Reino Unido" },
       ],
     };
+  },
+
+  created() {
+    this.user = JSON.parse(sessionStorage.getItem("user"));
+    console.log(this.user);
   },
 };
 </script>

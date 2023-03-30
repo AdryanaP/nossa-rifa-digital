@@ -10,7 +10,7 @@
                   class="text-xl leading-7 text-gray-900 sm:truncate sm:leading-9"
                 >
                   <span class="animate-waving">👋🏽</span>
-                  Olá, <span class="font-semibold">Fulana de Tal</span>!
+                  Olá, <span class="font-semibold">{{ user?.name }}</span>!
                 </h1>
                 <p class="text-gray-500 text-sm">
                   Algumas informações relevantes logo abaixo.
@@ -168,6 +168,7 @@ export default {
           id: 3,
         },
       ],
+      user: "",
     };
   },
   computed: {
@@ -188,6 +189,10 @@ export default {
       });
     },
   },
+
+  created() {
+    this.user = JSON.parse(sessionStorage.getItem("user"));
+  }
 };
 </script>
 
