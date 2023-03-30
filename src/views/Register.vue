@@ -100,16 +100,20 @@
         <span class="border-b-2 border-primary">Faça Login</span></router-link
       >
     </form>
-    <AlertError v-if="hasError" :data="msgError" class=" transition-opacity ease-in duration-700 animate-fade"/>
+    <AlertError
+      v-if="hasError"
+      :data="msgError"
+      class="transition-opacity ease-in duration-700 animate-fade"
+    />
   </div>
 </template>
 
 <script>
 import { EyeSlashIcon, EyeIcon } from "@heroicons/vue/20/solid";
 import { mask } from "vue-the-mask";
-// import router from "@/router";
+import router from "@/router";
 import axios from "axios";
-// import Home from "@/views/Home.vue";
+import Home from "@/views/Home.vue";
 import AlertError from "@/components/AlertError.vue";
 
 export default {
@@ -157,12 +161,14 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res);
-          // router.push({
-          //   path: "/",
-          //   name: "Home",
-          //   component: Home,
-          // });
+          sessionStorage.setItem("token", res.data.token);
+          sessionStorage.setItem("user", res.data.user);
+
+          router.push({
+            path: "/",
+            name: "Home",
+            component: Home,
+          });
         })
 
         .catch((error) => {
@@ -170,7 +176,7 @@ export default {
           this.hasError = true;
           setTimeout(() => {
             this.hasError = false;
-          }, 5000);
+          }, 6000);
         });
     },
   },

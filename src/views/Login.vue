@@ -18,7 +18,7 @@
             name="email"
             id="email"
             v-model="email"
-            class="block w-full outline-none border-0 pl-7 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+            class="block w-full bg-transparent outline-none border-0 pl-7 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
             placeholder="Email"
           />
         </div>
@@ -37,7 +37,7 @@
             name="password"
             id="password"
             v-model="password"
-            class="block w-full outline-none border-0 pl-7 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+            class="block w-full bg-transparent outline-none border-0 pl-7 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
             placeholder="Senha"
           />
           <button
@@ -66,7 +66,8 @@
         <label for="rememberMe">Lembrar senha</label>
       </div>
       <button
-        type="submit"
+        type="button"
+        @click="login"
         class="flex w-full justify-center rounded-md border border-transparent bg-primary py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-primary focus:outline-none focus:ring-offset-0"
       >
         Entrar
@@ -79,10 +80,19 @@
         <span class="border-b-2 border-primary">Registre-se!</span></router-link
       >
     </form>
+    <AlertError
+      v-if="hasError"
+      :data="msgError"
+      class="transition-opacity ease-in duration-700 animate-fade"
+    />
   </div>
 </template>
 
 <script>
+import router from "@/router";
+import axios from "axios";
+import Home from "@/views/Home.vue";
+import AlertError from "@/components/AlertError.vue";
 import {
   EyeSlashIcon,
   EyeIcon,
@@ -92,7 +102,7 @@ import {
 
 export default {
   name: "AboutVue",
-  components: { EyeSlashIcon, EyeIcon, KeyIcon, AtSymbolIcon },
+  components: { EyeSlashIcon, EyeIcon, KeyIcon, AtSymbolIcon, AlertError },
   data() {
     return {
       email: "",
@@ -100,6 +110,8 @@ export default {
       rememberMe: false,
       passwordHidden: true,
       passwordType: "password",
+      msgError: "",
+      hasError: false,
     };
   },
   methods: {
@@ -115,8 +127,47 @@ export default {
         this.passwordType = "text";
       }
     },
+    login() {
+      this.msgError = "";
+      this.hasError = false;
+      axios
+        .post(
+          "https://api.nossarifadigital.digital/v1/auth/login",
+          {
+            email: this.email,
+            password: this.password,
+            device_name: "web",
+          },
+          {
+            headers: {
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          sessionStorage.setItem("token", res.data.token);
+          sessionStorage.setItem("user", JSON.stringify(res.data.user));
+
+          router.push({
+            path: "/",
+            name: "Home",
+            component: Home,
+          });
+        })
+
+        .catch((error) => {
+          this.msgError = error.response.data.message;
+          this.hasError = true;
+          setTimeout(() => {
+            this.hasError = false;
+          }, 6000);
+        });
+    },
   },
   created() {
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
+
     this.email = localStorage.getItem("email");
     this.password = localStorage.getItem("password");
   },

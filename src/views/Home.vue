@@ -131,9 +131,7 @@
     </div>
 
     <div class="flex flex-1 flex-col lg:pl-64 h-full">
-      <div
-        class="flex h-12 flex-shrink-0 border-b shadow bg-white"
-      >
+      <div class="flex h-12 flex-shrink-0 border-b shadow bg-white">
         <button
           type="button"
           class="px-4 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary lg:hidden"
@@ -152,7 +150,7 @@
                 <MenuButton
                   class="flex max-w-xs items-center rounded-full p-2 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 lg:rounded-md lg:p-2 lg:hover:bg-gray-50"
                 >
-                  <p>Fulana de Tal</p>
+                  <p>{{ user?.name }}</p>
                   <ChevronDownIcon
                     class="ml-1 h-5 w-5 flex-shrink-0 text-gray-400 lg:block"
                     aria-hidden="true"
@@ -205,9 +203,19 @@
       </main>
     </div>
   </div>
+  <AlertError
+    v-if="hasError"
+    :data="msgError"
+    class="transition-opacity ease-in duration-700 animate-fade"
+  />
 </template>
 
 <script>
+import router from "@/router";
+// import axios from "axios";
+import Login from "@/views/Login.vue";
+import AlertError from "@/components/AlertError.vue";
+
 import {
   Dialog,
   DialogPanel,
@@ -261,6 +269,7 @@ export default {
     TransitionRoot,
     FinalizeCampaign,
     SalesHistory,
+    AlertError,
     ArrowRightOnRectangleIcon,
     Bars3CenterLeftIcon,
     BellIcon,
@@ -316,8 +325,10 @@ export default {
           amount: "$30,659.45",
         },
       ],
+      user: "",
     };
   },
+
   computed: {
     newCampaignOpen() {
       return this.$store.state.newCampaignOpen;
@@ -333,6 +344,18 @@ export default {
     },
     salesHistoryOpen() {
       return this.$store.state.salesHistoryOpen;
+    },
+  },
+
+  created() {
+    const token = sessionStorage.getItem("token");
+    this.user = JSON.parse(sessionStorage.getItem("user"));
+    if (!token) {
+      router.push({
+        path: "/login",
+        name: "Login",
+        component: Login,
+      });
     }
   },
 };

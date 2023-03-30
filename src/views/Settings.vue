@@ -114,7 +114,7 @@
                 item.current
                   ? 'bg-primaryMedium text-primary'
                   : 'hover:text-gray-800',
-                'group flex items-center px-2 py-2 text-base font-medium rounded-md transition text-gray-500',
+                'group flex items-center px-2 py-2 text-base font-medium rounded transition text-gray-500',
               ]"
               :aria-current="item.current ? 'page' : undefined"
             >
@@ -152,7 +152,7 @@
                 <MenuButton
                   class="flex max-w-xs items-center p-2 rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 lg:rounded-md lg:p-2 lg:hover:bg-gray-50"
                 >
-                  <p>Fulana de Tal</p>
+                  <p> {{ user.name }}</p>
                   <ChevronDownIcon
                     class="ml-1 h-5 w-5 flex-shrink-0 text-gray-400 lg:block"
                     aria-hidden="true"
@@ -203,7 +203,7 @@
               myAccountOpen
                 ? 'bg-white text-primary font-medium'
                 : 'bg-transparent text-gray-600 hover:text-black',
-              'flex items-center gap-3 text-sm p-2',
+              'flex items-center gap-3 text-sm p-2 rounded',
             ]"
             @click="myAccount"
           >
@@ -215,7 +215,7 @@
               paymentOpen
                 ? 'bg-white text-primary font-medium'
                 : 'bg-transparent text-gray-600 hover:text-black',
-              'flex items-center gap-3 text-sm p-2',
+              'flex items-center gap-3 text-sm p-2 rounded',
             ]"
             @click="payment"
           >
@@ -227,7 +227,7 @@
               socialMediaOpen
                 ? 'bg-white text-primary font-medium'
                 : 'bg-transparent text-gray-600 hover:text-black',
-              'flex items-center gap-3 text-sm p-2',
+              'flex items-center gap-3 text-sm p-2 rounded',
             ]"
             @click="socialMedia"
           >
@@ -246,6 +246,9 @@
 </template>
 
 <script>
+import router from "@/router";
+// import axios from "axios";
+import Login from "@/views/Login.vue";
 import {
   Dialog,
   DialogPanel,
@@ -332,7 +335,7 @@ export default {
         { name: "Minhas Rifas", href: "/", icon: TicketIcon, current: false },
         {
           name: "Histórico de Vendas",
-          href: "#",
+          href: "/historico",
           icon: ClockIcon,
           current: false,
         },
@@ -357,6 +360,7 @@ export default {
           amount: "$30,659.45",
         },
       ],
+      user: "",
     };
   },
   computed: {
@@ -380,6 +384,19 @@ export default {
     socialMedia() {
       this.$store.commit("openSocialMedia");
     },
+  },
+
+  created() {
+    // sessionStorage.removeItem("clientId");
+    const token = sessionStorage.getItem("token");
+    this.user = JSON.parse(sessionStorage.getItem("user"));
+    if (!token) {
+      router.push({
+        path: "/login",
+        name: "Login",
+        component: Login,
+      });
+    }
   },
 };
 </script>

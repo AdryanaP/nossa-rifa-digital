@@ -68,6 +68,6 @@ export default createStore({
     },
     setCampaign(state, value) {
       state.campaign = value
-    }
+    },
   },
 });
