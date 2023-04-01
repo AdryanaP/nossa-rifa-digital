@@ -131,12 +131,10 @@
     </div>
 
     <div class="flex flex-1 flex-col lg:pl-64 h-full">
-      <div
-        class="flex h-16 flex-shrink-0 border-b border-gray-200 bg-white lg:border-none"
-      >
+      <div class="flex h-12 flex-shrink-0 border-b shadow bg-white">
         <button
           type="button"
-          class="border-r border-gray-200 px-4 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cyan-500 lg:hidden"
+          class="px-4 text-gray-400 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary lg:hidden"
           @click="sidebarOpen = true"
         >
           <span class="sr-only">Open sidebar</span>
@@ -150,12 +148,17 @@
             <Menu as="div" class="relative ml-3">
               <div>
                 <MenuButton
-                  class="flex max-w-xs items-center p-2 rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 lg:rounded-md lg:p-2 lg:hover:bg-gray-50"
+                  class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 lg:hover:bg-gray-50"
                 >
-                  <p> {{ user.name }}</p>
+                  <!-- <p>{{ user?.name }}</p>
                   <ChevronDownIcon
                     class="ml-1 h-5 w-5 flex-shrink-0 text-gray-400 lg:block"
                     aria-hidden="true"
+                  /> -->
+                  <img
+                    :src="user.profile.avatar"
+                    alt="avatar"
+                    class="w-9 h-9 rounded-full shadow"
                   />
                 </MenuButton>
               </div>
@@ -180,6 +183,7 @@
                       >Configuracoes</a
                     >
                   </MenuItem>
+
                   <MenuItem v-slot="{ active }">
                     <a
                       href="/login"
@@ -207,8 +211,8 @@
             ]"
             @click="myAccount"
           >
-            <UserCircleIcon class="ml-1 h-6 w-6" aria-hidden="true" /> Minha
-            Conta
+            <UserCircleIcon class="ml-1 h-6 w-6" aria-hidden="true" />
+            <p class="truncate">Minha Conta</p>
           </button>
           <button
             :class="[
@@ -219,8 +223,8 @@
             ]"
             @click="payment"
           >
-            <CurrencyDollarIcon class="ml-1 h-6 w-6" aria-hidden="true" /> Meios
-            de Pagamento
+            <CurrencyDollarIcon class="ml-1 h-6 w-6" aria-hidden="true" />
+            <p class="truncate">Meios de Pagamento</p>
           </button>
           <button
             :class="[
@@ -231,8 +235,8 @@
             ]"
             @click="socialMedia"
           >
-            <UserPlusIcon class="ml-1 h-6 w-6" aria-hidden="true" /> Redes
-            Sociais
+            <UserPlusIcon class="ml-1 h-6 w-6" aria-hidden="true" />
+            <p class="truncate">Redes Sociais</p>
           </button>
         </div>
         <div class="col-span-3">

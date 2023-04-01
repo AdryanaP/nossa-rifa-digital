@@ -148,13 +148,14 @@
             <Menu as="div" class="relative ml-3">
               <div>
                 <MenuButton
-                  class="flex max-w-xs items-center rounded-full p-2 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 lg:rounded-md lg:p-2 lg:hover:bg-gray-50"
+                  class="flex max-w-xs items-center rounded-full  bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 lg:hover:bg-gray-50"
                 >
-                  <p>{{ user?.name }}</p>
+                  <!-- <p>{{ user?.name }}</p>
                   <ChevronDownIcon
                     class="ml-1 h-5 w-5 flex-shrink-0 text-gray-400 lg:block"
                     aria-hidden="true"
-                  />
+                  /> -->
+                  <img :src="user.profile.avatar" alt="avatar" class="w-9 h-9 rounded-full shadow">
                 </MenuButton>
               </div>
               <transition

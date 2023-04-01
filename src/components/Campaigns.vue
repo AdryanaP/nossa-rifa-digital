@@ -36,7 +36,7 @@
             </button>
           </div>
 
-          <div class="flex items-center gap-4 bg-black rounded-md px-6 py-3 my-4">
+          <div v-if="user.payments.pix.is_active != 'null' || user.payments.ipag.is_active != 'null'" class="flex items-center gap-4 bg-black rounded-md px-6 py-3 my-4">
             <ExclamationTriangleIcon class="w-20 h-20 md:w-16 md:h-16 lg:w-10 lg:h-10 text-yellow-500" />
             <p class="text-white">
               Você ainda não possui nenhum meio de pagamento para receber o

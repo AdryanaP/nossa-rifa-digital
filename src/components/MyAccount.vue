@@ -6,6 +6,31 @@
       <h1 class="text-lg font-medium">Minha Conta</h1>
       <form class="my-4 flex flex-col gap-8">
         <div class="space-y-4">
+          <div class="">
+            <label for="avatar" class="block font-medium text-sm">Foto</label>
+            <div class="flex items-center gap-6 mt-2">
+              <img
+                class="rounded-full h-12 w-12"
+                alt="avatar"
+                :src="imageUrl"
+              />
+              <span>
+                <label
+                  class="border border-gray-300 py-2 px-4 rounded-md cursor-pointer"
+                  ><span type="button" class="text-sm">Alterar</span
+                  ><input
+                    type="file"
+                    id="avatar"
+                    @change="onFileChange($event)"
+                    accept="image/*"
+                    multiple=""
+                    class="hidden w-full"
+                  />
+                </label>
+              </span>
+            </div>
+          </div>
+
           <div>
             <label for="name" class="block font-medium text-sm">Nome</label>
             <div class="mt-1">
@@ -231,6 +256,7 @@ export default {
   data() {
     return {
       user: "",
+      imageUrl: "",
       deletePhrase: "",
       country: { acronym: "BR", name: "Brasil" },
       countries: [
@@ -258,6 +284,12 @@ export default {
   },
 
   methods: {
+    onFileChange(e) {
+      const file = e.target.files[0] || e.dataTransfer.files[0];
+      this.user.profile.avatar = file
+      console.log(this.user.profile.avatar)
+      this.imageUrl = URL.createObjectURL(file);
+    },
     updateProfile() {
       const token = sessionStorage.getItem("token");
 
@@ -267,6 +299,7 @@ export default {
           {
             name: this.user.name,
             email: this.user.email,
+            avatar: this.user.profile.avatar,
             whatsapp: `${this.user.profile.whatsapp}`,
             device_name: "web",
           },
@@ -296,7 +329,8 @@ export default {
 
   created() {
     this.user = JSON.parse(sessionStorage.getItem("user"));
-    console.log(this.user);
+    this.imageUrl = this.user.profile.avatar
+    console.log(this.user)
   },
 };
 </script>
