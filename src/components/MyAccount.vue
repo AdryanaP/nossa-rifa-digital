@@ -128,7 +128,8 @@
         <div class="text-right">
           <button
             class="rounded-md bg-black text-white px-4 py-3 text-sm font-medium shadow-sm focus:outline-none"
-            type="submit"
+            type="button"
+            @click="updateProfile"
           >
             Salvar
           </button>
@@ -195,25 +196,36 @@
         </div>
       </form>
     </div>
+    <AlertError
+      v-if="hasError"
+      :data="msgError"
+      class="transition-opacity ease-in duration-700 animate-fade"
+    />
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import AlertError from "@/components/AlertError.vue";
+import { mask } from "vue-the-mask";
 import {
   Listbox,
   ListboxButton,
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/vue";
-import { ChevronUpDownIcon } from "@heroicons/vue/20/solid";
+import { ChevronUpDownIcon, CheckIcon } from "@heroicons/vue/20/solid";
 
 export default {
   name: "MyAccount",
+  directives: { mask },
   components: {
     Listbox,
     ListboxButton,
     ListboxOption,
     ListboxOptions,
+    AlertError,
+    CheckIcon,
     ChevronUpDownIcon,
   },
   data() {
@@ -240,7 +252,46 @@ export default {
         { acronym: "IT", name: "Itália" },
         { acronym: "GB", name: "Reino Unido" },
       ],
+      msgError: "",
+      hasError: false,
     };
+  },
+
+  methods: {
+    updateProfile() {
+      const token = sessionStorage.getItem("token");
+
+      axios
+        .post(
+          "https://api.nossarifadigital.digital/v1/resources/settings/profile",
+          {
+            name: this.user.name,
+            email: this.user.email,
+            whatsapp: `${this.user.profile.whatsapp}`,
+            device_name: "web",
+          },
+          {
+            headers: {
+              Accept: "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          sessionStorage.setItem("user", JSON.stringify(res.data.user));
+          window.history.go();
+        })
+
+        .catch((error) => {
+          console.log(error);
+          this.msgError = error.response.data.message;
+          this.hasError = true;
+          setTimeout(() => {
+            this.hasError = false;
+          }, 6000);
+        });
+    },
   },
 
   created() {

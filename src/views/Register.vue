@@ -162,7 +162,7 @@ export default {
         )
         .then((res) => {
           sessionStorage.setItem("token", res.data.token);
-          sessionStorage.setItem("user", res.data.user);
+          sessionStorage.setItem("user", JSON.stringify(res.data.user));
 
           router.push({
             path: "/",
